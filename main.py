@@ -35,6 +35,7 @@ class Livro:
 
 #* Funções
 
+# Função de cadastro de livros
 def Cadastro(lista_livros):
     codigo = ""
     titulo = ""
@@ -106,9 +107,126 @@ def Cadastro(lista_livros):
         print(".")
         print("Cadastro cancelado.")
 
+# Função de busca de livros pelo titulo
+def Info_Por_Nome(lista_livros):
+    nome_alvo = ""
+    encontrados = 0
+    
+    print("Busca pelo nome do livro\n")
+    nome_alvo = input("Digite o titulo do livro desejado: ").upper()
+    
+    print("Buscando livros...")
+    
+    for livro in lista_livros:
+        if (livro.titulo.upper() == nome_alvo):
+            encontrados += 1
+            livro.Info()
+            print("")
+    
+    print("-"*30)
+    
+    if encontrados > 0:
+        print(f"\n{encontrados} livro(s) foram encontrados.")
+    else:
+        print("\nNenhum livro com este titulo foi encontrado.")
+
+# Função de busca de livros por categoria
+def Info_Por_Categoria(lista_livros):
+    categoria_alvo = ""
+    encontrados = 0
+    
+    print("Busca pela categoria do livro\n")
+    categoria_alvo = input("Digite a categoria desejada: ").upper()
+    
+    print("Buscando livros...")
+    
+    # filtragem livro por livro
+    for livro in lista_livros:
+        if (livro.categoria.upper() == categoria_alvo):
+            encontrados += 1
+            livro.Info()
+            print("")
+    
+    print("-"*30)
+    
+    # verificação para caso livros foram encontrados, ou não
+    if encontrados > 0:
+        print(f"\n{encontrados} livro(s) foram encontrados.")
+    else:
+        print("\nNenhum livro com esta categoria foi encontrado.")
+
+# Função de busca de livros pelo valor
+def Info_Por_Valor(lista_livros):
+    estoque_alvo = 0.00
+    encontrados = 0
+    
+    print("Busca pelo preco do livro\n")
+    valor_alvo = float(input("Digite o valor máximo desejado: ").upper())
+    
+    print(f"Buscando livros até o valor de R$ {valor_alvo:.2f}...")
+    
+    # filtragem livro por livro
+    for livro in lista_livros:
+        if (livro.valor <= valor_alvo):
+            encontrados += 1
+            livro.Info()
+            print("")
+    
+    print("-"*30)
+    
+    # verificação para caso livros foram encontrados, ou não
+    if encontrados > 0:
+        print(f"\n{encontrados} livro(s) foram encontrados.")
+    else:
+        print("\nNenhum livro até este valor foi encontrado.")
+
+# Função de busca de livros pelo estoque
+def Info_Por_Estoque(lista_livros):
+    estoque_alvo = 0
+    encontrados = 0
+    
+    print("Busca pelo preco do livro\n")
+    estoque_alvo = float(input("Digite a quantidade máxima desejada: ").upper())
+    
+    print(f"Buscando livros até a quantidade de: {estoque_alvo}...")
+    
+    # filtragem livro por livro
+    for livro in lista_livros:
+        if (livro.estoque <= estoque_alvo):
+            encontrados += 1
+            livro.Info()
+            print("")
+    
+    print("-"*30)
+    
+    # verificação para caso livros foram encontrados, ou não
+    if encontrados > 0:
+        print(f"\n{encontrados} livro(s) foram encontrados.")
+    else:
+        print("\nNenhum livro com essa quantidade foi encontrado.")
+
+# Função de calculo para o valor total em estoque (entre todos os livros)
+def Valor_Total_Estoque(lista_livros):
+    valores_totais_livros = 0.0
+    estoque_total = 0
+    valor_total_estoque = 0.0
+
+    print("Calculando o valor total em estoque...\n")
+    
+    for livro in lista_livros:
+        valores_totais_livros += livro.valor
+        estoque_total += livro.estoque
+    
+    valor_total_estoque = valores_totais_livros * estoque_total
+    
+    if (valor_total_estoque > 0):
+        print("Valor total em estoque: ")
+        print(f"R$ {valor_total_estoque:.2f}")
+    else: 
+        print("Não foi possível calcular o valor total do estoque.")
+
 #* main function
 if __name__ == "__main__":
-
     lista_livros = []
     
     # Livros de exemplos
@@ -163,7 +281,6 @@ if __name__ == "__main__":
 
         elif escolha == 1: # Cadastro de livros
             print("-"*30)
-            print("Executar função de cadastro")
             Cadastro(lista_livros)
 
         elif escolha == 2: # Listagem geral dos livros
@@ -173,23 +290,23 @@ if __name__ == "__main__":
 
         elif escolha == 3: # Buscar livro por nome
             print("-"*30)
-            print("Executar função de busca de livro por nome")
+            Info_Por_Nome(lista_livros)
 
         elif escolha == 4: # Buscar livro por categoria
             print("-"*30)
-            print("Executar função de busca de livro por categoria")
+            Info_Por_Categoria(lista_livros)
 
         elif escolha == 5: # Buscar livro por preço
             print("-"*30)
-            print("Executar função de busca de livro por preço")
+            Info_Por_Valor(lista_livros)
 
         elif escolha == 6: # Buscar livro por estoque
             print("-"*30)
-            print("Executar função de buscar livros por estoque")
+            Info_Por_Estoque(lista_livros)
 
         elif escolha == 7: # Valor total no estoque
             print("-"*30)
-            print("Executar função de calculo do estoque")
+            Valor_Total_Estoque(lista_livros)
 
         else: # Opção inválida
             print("-"*30)
