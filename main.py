@@ -20,7 +20,7 @@ class Livro:
         self.valor = valor
         self.estoque = estoque
     
-    def Info(self): #* Método para informar *todos* os livros
+    def Info(self): # Método para informar *todos* os livros
 
         # Calculo para o valor total em estoque
         valor_estoque = self.valor * self.estoque
@@ -185,14 +185,14 @@ def Info_Por_Estoque(lista_livros):
     estoque_alvo = 0
     encontrados = 0
     
-    print("Busca pelo preco do livro\n")
-    estoque_alvo = float(input("Digite a quantidade máxima desejada: ").upper())
+    print("Busca de livros pela quantidade em estoque\n")
+    estoque_alvo = float(input("Digite a quantidade mínima desejada: ").upper())
     
-    print(f"Buscando livros até a quantidade de: {estoque_alvo}...")
+    print(f"Buscando livros com quantidade maior que: {estoque_alvo}...")
     
     # filtragem livro por livro
     for livro in lista_livros:
-        if (livro.estoque <= estoque_alvo):
+        if (livro.estoque >= estoque_alvo):
             encontrados += 1
             livro.Info()
             print("")
@@ -200,10 +200,13 @@ def Info_Por_Estoque(lista_livros):
     print("-"*30)
     
     # verificação para caso livros foram encontrados, ou não
-    if encontrados > 0:
-        print(f"\n{encontrados} livro(s) foram encontrados.")
+    if encontrados == 1:
+        print(f"\n{encontrados} livro foi encontrado.")
+    
+    elif encontrados > 1:
+        print(f"\n{encontrados} livros foram encontrados.")
     else:
-        print("\nNenhum livro com essa quantidade foi encontrado.")
+        print("\nNenhum livro com quantidade maior que esta foi encontrado.")
 
 # Função de calculo para o valor total em estoque (entre todos os livros)
 def Valor_Total_Estoque(lista_livros):
@@ -225,9 +228,14 @@ def Valor_Total_Estoque(lista_livros):
     else: 
         print("Não foi possível calcular o valor total do estoque.")
 
-#* main function
+#* Função Principal
 if __name__ == "__main__":
+    # lista de livros
     lista_livros = []
+    # flag para a execução contínua do sistema
+    running = True
+    # escolha inserida pelo usuário
+    escolha = 0
     
     # Livros de exemplos
     lista_livros.append(
@@ -250,14 +258,11 @@ if __name__ == "__main__":
                             valor=78.00,
                             estoque=100
                         ))
-
-    running = True
-    escolha = 0
     
     print("-"*30)
     print("\tSistema Livraria")
     
-    #* Condition to run the system
+    # Condição para executar o sistema
     while running:
         print("-"*30)
         print("Funcionalidades Disponíveis: \n")
@@ -311,5 +316,7 @@ if __name__ == "__main__":
         else: # Opção inválida
             print("-"*30)
             print("Opção não encontrada")
-            
+        
+        # Este input serve apenas para o sistema não voltar
+        # ao menu imediatamente após uma funcionalidade
         input("\nContinuar...")
