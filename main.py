@@ -1,3 +1,6 @@
+#TODO Atualização do arquivo de estoque
+#TODO ----Testar a função de atualizar o arquivo
+#TODO Tratamento de erros
 
 #* Classe para Livros
 class Livro:
@@ -130,8 +133,16 @@ def Info_Por_Categoria(lista_livros):
     categoria_alvo = ""
     encontrados = 0
     
+    repetir = True
+    
     print("Busca pela categoria do livro\n")
-    categoria_alvo = input("Digite a categoria desejada: ").upper()
+    
+    while repetir:
+        try:
+            categoria_alvo = input("Digite a categoria desejada: ").upper()
+        except Exception as error:
+            print("Houve um erro ao receber a informação, tente novamente.")
+            print(f"Erro: {error}")
     
     print("Buscando livros...")
     
@@ -151,7 +162,7 @@ def Info_Por_Categoria(lista_livros):
         print("\nNenhum livro com esta categoria foi encontrado.")
 
 #? Testei a função e ela está mostrando mais de um livro,
-#? são mostrados os livros com o valor menor que o inserido pelo usuário
+#? são mostrados os livros com o valor 'menor' que o inserido pelo usuário
 # Função de busca de livros pelo valor
 def Info_Por_Valor(lista_livros):
     valor_alvo = 0.00
@@ -178,7 +189,7 @@ def Info_Por_Valor(lista_livros):
         print("\nNenhum livro até este valor foi encontrado.")
 
 #? Testei a função e ela está mostrando mais de um livro,
-#? são mostrados os livros com estoque maior que o inserido pelo usuário
+#? são mostrados os livros com estoque 'maior' que o inserido pelo usuário
 # Função de busca de livros pelo estoque
 def Info_Por_Estoque(lista_livros):
     estoque_alvo = 0
@@ -232,11 +243,57 @@ def Carregar_Estoque():
     print("Carregando livros do arquivo\n")
 
     # Abrindo o arquivo
-    arquivo = open("livros.txt", "r")
+    arquivo = open("estoque.txt", "r", encoding="utf-8")
 
     # carregando todas as linhas do arquivo
     for linha in arquivo:
         print(linha)
+    
+    # fechando o arquivo no final da função
+    arquivo.close()
+
+# Função de atualizaro arquivo de estoque
+def Atualizar_Estoque(lista_livros):
+    running = True
+
+    while running:
+
+        print("Atualizando o arquivo de estoque")
+        
+        # Abrindo o arquivo para adicionar conteúdo
+        arquivo = open("estoque", "a", encoding="utf-8")
+        
+        try:
+            for livro in lista_livros:
+                arquivo.write(f"{livro.codigo},{livro.titulo},{livro.ano},{livro.categoria},{livro.editora},R${livro.valor},{livro.estoque}")
+
+            running = False
+
+        except Exception as error: 
+            print("Ocorreu um erro na hora de atualizar o arquivo de estoque.")
+            print(f"Mensagen de erro: {error}\n")
+
+            running = Repetir_Função()
+
+# Função para o usuário escolher se deve repetir a função
+def Repetir_Função():
+    repetir = True
+
+    while repetir:
+        escolha = input("Deseja executar a função novamente? S/N")
+
+        if (escolha.upper() == "N"):
+            print("Cancelando a execução da funcionalidade...")
+            repetir = False
+            # retornando o resultado para parar a execução da função
+            return False
+
+        elif (escolha.upper() == "S"):
+            print("Executando novamente...")
+            repetir = False
+
+        else:
+            print("Opção inválida, tente novamente...")
 
 #* Função Principal
 if __name__ == "__main__":
@@ -284,6 +341,7 @@ if __name__ == "__main__":
         print("6 - Busca por quantidade em estoque")
         print("7 - Valor total no estoque")
         print("8 - Carregar estoque")
+        print("9 - Atualizar arquivo no estoque")
         print("0 - Encerrar atividades\n")
         
         escolha = int(input(
@@ -328,6 +386,10 @@ if __name__ == "__main__":
         elif escolha == 8: # Carregar arquivo de livros
             print("-"*30)
             Carregar_Estoque()
+        
+        elif escolha == 9:
+            print("-"*30)
+            print("executar função de atualizar o arquivo")
 
         else: # Opção inválida
             print("-"*30)
