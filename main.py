@@ -227,6 +227,17 @@ def Valor_Total_Estoque(lista_livros):
     else: 
         print("Não foi possível calcular o valor total do estoque.")
 
+# Função de busca no arquivo de dados
+def Carregar_Estoque():
+    print("Carregando livros do arquivo\n")
+
+    # Abrindo o arquivo
+    arquivo = open("livros.txt", "r")
+
+    # carregando todas as linhas do arquivo
+    for linha in arquivo:
+        print(linha)
+
 #* Função Principal
 if __name__ == "__main__":
     # lista de livros
@@ -272,6 +283,7 @@ if __name__ == "__main__":
         print("5 - Buscar livros por preço")
         print("6 - Busca por quantidade em estoque")
         print("7 - Valor total no estoque")
+        print("8 - Carregar estoque")
         print("0 - Encerrar atividades\n")
         
         escolha = int(input(
@@ -289,6 +301,7 @@ if __name__ == "__main__":
 
         elif escolha == 2: # Listagem geral dos livros
             print("-"*30)
+            print("Lista dos livros cadastrados: ")
             for livro in lista_livros:
                 livro.Info()
 
@@ -311,6 +324,10 @@ if __name__ == "__main__":
         elif escolha == 7: # Valor total no estoque
             print("-"*30)
             Valor_Total_Estoque(lista_livros)
+
+        elif escolha == 8: # Carregar arquivo de livros
+            print("-"*30)
+            Carregar_Estoque()
 
         else: # Opção inválida
             print("-"*30)
