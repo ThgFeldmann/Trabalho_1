@@ -1,6 +1,4 @@
-#TODO Atualização do arquivo de estoque
-#TODO ----Testar a função de atualizar o arquivo
-#TODO Tratamento de erros
+#TODO Tratamento de erros em todas coletas de dados
 
 #* Classe para Livros
 class Livro:
@@ -161,8 +159,6 @@ def Info_Por_Categoria(lista_livros):
     else:
         print("\nNenhum livro com esta categoria foi encontrado.")
 
-#? Testei a função e ela está mostrando mais de um livro,
-#? são mostrados os livros com o valor 'menor' que o inserido pelo usuário
 # Função de busca de livros pelo valor
 def Info_Por_Valor(lista_livros):
     valor_alvo = 0.00
@@ -188,8 +184,6 @@ def Info_Por_Valor(lista_livros):
     else:
         print("\nNenhum livro até este valor foi encontrado.")
 
-#? Testei a função e ela está mostrando mais de um livro,
-#? são mostrados os livros com estoque 'maior' que o inserido pelo usuário
 # Função de busca de livros pelo estoque
 def Info_Por_Estoque(lista_livros):
     estoque_alvo = 0
@@ -240,7 +234,7 @@ def Valor_Total_Estoque(lista_livros):
 
 # Função de busca no arquivo de dados
 def Carregar_Estoque():
-    print("Carregando livros do arquivo\n")
+    print("Carregando livros do arquivo...\n")
 
     # Abrindo o arquivo
     arquivo = open("estoque.txt", "r", encoding="utf-8")
@@ -256,53 +250,103 @@ def Carregar_Estoque():
 def Atualizar_Estoque(lista_livros):
     running = True
 
-    while running:
+    while running == True:
 
-        print("Atualizando o arquivo de estoque")
+        print("Atualizando o arquivo de estoque...")
         
         # Abrindo o arquivo para adicionar conteúdo
-        arquivo = open("estoque", "a", encoding="utf-8")
+        arquivo = open("estoque.txt", "a", encoding="utf-8")
         
         try:
             for livro in lista_livros:
-                arquivo.write(f"{livro.codigo},{livro.titulo},{livro.ano},{livro.categoria},{livro.editora},R${livro.valor},{livro.estoque}")
+                arquivo.write(f"{livro.codigo},{livro.titulo},{livro.ano},{livro.categoria},{livro.editora},R${livro.valor},{livro.estoque}\n")
 
+            arquivo.close()
             running = False
 
-        except Exception as error: 
-            print("Ocorreu um erro na hora de atualizar o arquivo de estoque.")
+        except Exception as error:
+            print("\nOcorreu um erro na hora de atualizar o arquivo de estoque.")
             print(f"Mensagen de erro: {error}\n")
 
-            running = Repetir_Função()
+            flag = Repetir_Função()
+            
+            if (flag == True): #* Parar a função
+                running = False
+            elif (flag == False): #* Repetir a função
+                Continuar()
+                print("-"*30)
 
+#TODO Implementar em outras funções
 # Função para o usuário escolher se deve repetir a função
 def Repetir_Função():
     repetir = True
 
     while repetir:
-        escolha = input("Deseja executar a função novamente? S/N")
+        print("\nDeseja executar a função novamente? S/N")
+        escolha = input(": ")
 
         if (escolha.upper() == "N"):
             print("Cancelando a execução da funcionalidade...")
             repetir = False
             # retornando o resultado para parar a execução da função
-            return False
+            return True
 
         elif (escolha.upper() == "S"):
             print("Executando novamente...")
             repetir = False
 
+            # retornando um sinal para *Não* parar a execução da função
+            return False
+
         else:
             print("Opção inválida, tente novamente...")
+
+#* Função que será executada antes de encerrar o sistema
+def Finalizar_Sessão(lista_livros):
+    running = True
+    
+    while running:
+        print("Antes de sair...")
+        print("Deseja Atualizar o arquivo de estoque? S/N")
+        
+        try:
+            escolha = input(": ").upper()
+            
+            if(escolha != "S" and escolha != "N"):
+                raise ValueError
+            elif (escolha == "S"):
+                Atualizar_Estoque(lista_livros)
+                Continuar()
+                running = False
+                print("Encerrando atividades...")
+            elif (escolha == "N"):
+                print("\nO arquivo não será salvo\n")
+                Continuar()
+                running = False
+                print("\nEncerrando atividades...")
+
+        except ValueError:
+            print("Entrada inválida, utilize caracteres válidos e tente novamente.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("Ocorreu um error inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+
+# Função para evitar o excesso de informações para o usuário,
+# necessitando de um input qualquer para continuar
+def Continuar():
+    print("-"*30)
+    input("Continuar...")
 
 #* Função Principal
 if __name__ == "__main__":
     # lista de livros
     lista_livros = []
-    # flag para a execução contínua do sistema
-    running = True
     # escolha inserida pelo usuário
-    escolha = 0
+    escolha = 1
     
     # Livros de exemplos
     lista_livros.append(
@@ -330,7 +374,7 @@ if __name__ == "__main__":
     print("\tSistema Livraria")
     
     # Condição para executar o sistema
-    while running:
+    while escolha != 0:
         print("-"*30)
         print("Funcionalidades Disponíveis: \n")
         print("1 - Cadastrar novo livro")
@@ -344,14 +388,23 @@ if __name__ == "__main__":
         print("9 - Atualizar arquivo no estoque")
         print("0 - Encerrar atividades\n")
         
-        escolha = int(input(
-            "Digite o número da funcionalidade desejada: "))
+        try:
+            escolha = int(input(
+                "Digite o número da funcionalidade desejada: "))
+        except ValueError: #* Caso a conversão não seja possível
+            print("-"*30)
+            print("Entrada inválida. Utilize números inteiros.")
+            Continuar()
+            continue
+        except Exception as error: #* Em caso de erros inesperados
+            print("-"*30)
+            print("Ocorreu um erro inesperado, certifique-se de usar números inteiros e tente novamente")
+            Continuar()
+            continue
 
         if escolha == 0: # Encerrar o sistema
             print("-"*30)
-            print("Encerrando atividades...")
-            print("-"*30)
-            running = False
+            Finalizar_Sessão(lista_livros)
 
         elif escolha == 1: # Cadastro de livros
             print("-"*30)
@@ -389,12 +442,10 @@ if __name__ == "__main__":
         
         elif escolha == 9:
             print("-"*30)
-            print("executar função de atualizar o arquivo")
+            Atualizar_Estoque(lista_livros)
 
         else: # Opção inválida
             print("-"*30)
             print("Opção não encontrada")
-        
-        # Este input serve apenas para o sistema não voltar
-        # ao menu imediatamente após uma funcionalidade
-        input("\nContinuar...")
+
+        Continuar()
