@@ -1,5 +1,3 @@
-#TODO Tratamento de erros em todas coletas de dados
-
 #* Classe para Livros
 class Livro:
     def __init__(
@@ -342,17 +340,33 @@ def Valor_Total_Estoque(lista_livros):
 
 # Função de busca no arquivo de dados
 def Carregar_Estoque():
-    print("Carregando livros do arquivo...\n")
-
-    # Abrindo o arquivo
-    arquivo = open("estoque.txt", "r", encoding="utf-8")
-
-    # carregando todas as linhas do arquivo
-    for linha in arquivo:
-        print(linha)
+    running = True
     
-    # fechando o arquivo no final da função
-    arquivo.close()
+    while running:
+        print("Carregando livros do arquivo...\n")
+
+        try:
+            # Abrindo o arquivo
+            arquivo = open("estoque.txt", "r", encoding="utf-8")
+
+            # carregando todas as linhas do arquivo
+            for linha in arquivo:
+                print(linha)
+            
+            # fechando o arquivo no final da função
+            arquivo.close()
+        except FileNotFoundError:
+            print("O arquivo de estoque não foi encontrado, certifique-se de que ele exista e está localizado junto com o programa.")
+            Continuar()
+            continue
+        except IOError:
+            print("O arquivo apresentou algum erro, impedindo a leitura.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("Ocorreu um erro inesperado, tente novamente.")
+            Continuar()
+            continue
 
 # Função de atualizaro arquivo de estoque
 def Atualizar_Estoque(lista_livros):
@@ -376,6 +390,7 @@ def Atualizar_Estoque(lista_livros):
             print("\nOcorreu um erro na hora de atualizar o arquivo de estoque.")
             print(f"Mensagen de erro: {error}\n")
 
+            #? Daqui para baixo está funcionando à base da gambiarra. *não mexer*.
             flag = Repetir_Função()
             
             if (flag == True): #* Parar a função
@@ -390,25 +405,35 @@ def Repetir_Função():
 
     while repetir:
         print("\nDeseja executar a função novamente? S/N")
-        escolha = input(": ")
+        
+        try:
+            escolha = input(": ")
 
-        if (escolha.upper() == "N"):
-            print("Cancelando a execução da funcionalidade...")
-            repetir = False
-            # retornando o resultado para parar a execução da função
-            return True
+            if (escolha.upper() == "N"):
+                print("Cancelando a execução da funcionalidade...")
+                repetir = False
+                # retornando o resultado para parar a execução da função
+                return True
 
-        elif (escolha.upper() == "S"):
-            print("Executando novamente...")
-            repetir = False
+            elif (escolha.upper() == "S"):
+                print("Executando novamente...")
+                repetir = False
 
-            # retornando um sinal para *Não* parar a execução da função
-            return False
+                # retornando um sinal para *Não* parar a execução da função
+                return False
 
-        else:
-            print("Opção inválida, tente novamente...")
+            else:
+                print("Opção inválida, tente novamente...")
+        except ValueError:
+            print("Ocorreu um erro com o valor inserido, selecione uma opção válida.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("Ocorreu um erro inesperado, tente novamente.")
+            Continuar()
+            continue
 
-#* Função que será executada antes de encerrar o sistema
+# Função que será executada antes de encerrar o sistema
 def Finalizar_Sessão(lista_livros):
     running = True
     
@@ -442,7 +467,7 @@ def Finalizar_Sessão(lista_livros):
             Continuar()
             continue
 
-# Função para evitar o excesso de informações para o usuário,
+# Função para evitar o excesso de informações à vista do usuário,
 # necessitando de um input qualquer para continuar
 def Continuar():
     print("-"*30)
@@ -452,10 +477,12 @@ def Continuar():
 if __name__ == "__main__":
     # lista de livros
     lista_livros = []
-    # escolha inserida pelo usuário
+
+    # escolha inserida pelo usuário, 
+    # número inicial é irrelevante, serve apenas para o funcionamento do loop.
     escolha = 1
     
-    # Livros de exemplos
+    # Livros de exemplos, *não estão salvos no arquivo de estoque por padrão*.
     lista_livros.append(
                         Livro(
                             codigo="0301", 
@@ -554,5 +581,3 @@ if __name__ == "__main__":
         else: # Opção inválida
             print("-"*30)
             print("Opção não encontrada")
-
-        Continuar()
