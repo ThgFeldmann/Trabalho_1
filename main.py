@@ -38,29 +38,175 @@ class Livro:
 def Cadastro(lista_livros):
     recebendo_valores = True
 
-    print("Cadastro\n")
-    
-    while recebendo_valores:
+    print("Cadastro de Livros\n")
+
+    while recebendo_valores: # Código
         try:
             codigo = input("Digite o código do livro: ")
-            titulo = input("Digite o titulo do livro: ")
-            editora = input("Digite a editora do livro: ")
-            categoria = input("Digite a categoria do livro: ")
-            ano = input("Digite o ano de publicação do livro: ")
-            valor = float(input("Digite o valor da unidade deste livro: "))
-            estoque = int(input("Digite a quantidade em estoque: "))
             
-            #* Se todas as entradas forem válidas, encerre o loop
-            recebendo_valores = False
+            if (len(codigo) > 0):
+                recebendo_valores = False
+            else:
+                raise ValueError
+
         except ValueError:
-            print("Ocorreu um erro na entrada, tente novamente.")
+            print("\nCódigo inválido, utilize caracteres alfabéticos ou números.")
             Continuar()
             continue
         except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Título
+        try:
+            titulo = input("Digite o titulo do livro: ")
+            
+            if (len(titulo) > 0):
+                recebendo_valores = False
+            else:
+                raise ValueError
+
+        except ValueError:
+            print("\nTítulo inválido, utilize caracteres alfabéticos, números ou símbolos.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
             Continuar()
             continue
     
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Editora
+        try:
+            editora = input("Digite a editora do livro: ")
+            
+            if (len(editora) > 0):
+                recebendo_valores = False
+            else:
+                raise ValueError
+
+        except ValueError:
+            print("\nEditora inválida, utilize caracteres alfabéticos, números ou símbolos.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+    
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Categoria
+        try:
+            categoria = input("Digite a categoria do livro: ")
+            
+            if (len(categoria) > 0):
+                recebendo_valores = False
+            else:
+                raise ValueError
+
+        except ValueError:
+            print("\nCategoria inválida, utilize caracteres alfabéticos, números ou símbolos.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+    
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Ano
+        try:
+            ano = input("Digite o ano de publicação do livro: ")
+            
+            if (len(ano) <= 0):
+                raise ValueError
+
+            elif (len(ano) <= 4):
+                try:
+                    ano = int(ano)
+                    
+                    recebendo_valores = False
+                except ValueError:
+                    print("\nEntrada inválida, insira no máximo quatro(4) números inteiros.")
+                    Continuar()
+                    continue
+            else:
+                print("\nEntrada inválida, insira no máximo quatro(4) números inteiros.")
+                Continuar()
+                continue
+            
+        except ValueError:
+            print("\nEntrada inválida, insira no máximo quatro(4) números inteiros.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+    
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Valor
+        try:
+            valor = input("Digite o valor da unidade deste livro: ")
+            
+            if (len(valor) > 0):
+                valor = float(valor)
+                
+                recebendo_valores = False
+            else:
+                raise ValueError
+
+        except ValueError:
+            print("\nValor inválido, utilize números inteiros ou flutuantes.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+    
+    # 'Reiniciando' para o próximo loop
+    recebendo_valores = True
+    
+    while recebendo_valores: # Estoque
+        try:
+            estoque = input("Digite a quantidade em estoque: ")
+            
+            if (len(estoque) > 0):
+                estoque = int(estoque)
+                
+                recebendo_valores = False
+            else:
+                raise ValueError
+
+        except ValueError:
+            print("\nQuantidade inválida, utilize apenas números inteiros.")
+            Continuar()
+            continue
+        except Exception as error:
+            print("\nOcorreu um erro inesperado, tente novamente.")
+            print(f"Mensagem de erro: {error}")
+            Continuar()
+            continue
+
     # Calculo para o valor total em estoque
     valor_estoque = valor * estoque
     
@@ -93,7 +239,7 @@ def Confirmação_De_Cadastro(codigo, titulo,
         try:
             confirmação = input("Escolha: ").upper()
         except ValueError:
-            print("Ocorreu um erro na entrada. Utilize uma das opções válidas e tente novamente.")
+            print("\nOcorreu um erro na entrada. Utilize uma das opções válidas e tente novamente.")
             Continuar()
             continue
         except Exception as error:
@@ -123,6 +269,7 @@ def Confirmação_De_Cadastro(codigo, titulo,
                 
                 #* Condição para o término da repetição
                 running = False
+                Continuar()
             except Exception as error:
                 print("Ocorreu um erro no cadastro, tente novamente.")
                 print("Erro: ", error)
@@ -138,6 +285,7 @@ def Confirmação_De_Cadastro(codigo, titulo,
             print("Cadastro cancelado.")
             #* Condição para o término da repetição
             running = False
+            Continuar()
         
         else:
             print("-"*30)
@@ -147,257 +295,358 @@ def Confirmação_De_Cadastro(codigo, titulo,
 
 # Função de busca de livros pelo titulo
 def Info_Por_Nome(lista_livros):
-    running = True
-    nome_alvo = ""
-    encontrados = 0
     
-    while running:
-        print("Busca pelo nome do livro\n")
+    if (len(lista_livros) > 0):
+        running = True
+        nome_alvo = ""
+        encontrados = 0
         
-        try:
-            nome_alvo = input("Digite o titulo do livro desejado: ").upper()
-        except ValueError:
-            print("Ocorreu um erro na entrada, tente novamente.")
-            Continuar()
-            continue
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            Continuar()
-            continue
-        
-        print("Buscando livros...")
-        
-        try:
-            for livro in lista_livros:
-                if (livro.titulo.upper() == nome_alvo):
-                    encontrados += 1
-                    livro.Info()
-                    print("")
-                    
-                print("-"*30)
+        while running:
+            print("Busca pelo nome do livro\n")
             
-            if encontrados > 0:
-                print(f"\n{encontrados} livro(s) foram encontrados.")
-            else:
-                print("\nNenhum livro com este titulo foi encontrado.")
+            try:
+                nome_alvo = input("Digite o titulo do livro desejado: ").upper()
+                
+                if (len(nome_alvo) <= 0):
+                    raise ValueError
             
-            running = False
+            except ValueError:
+                print("\nOcorreu um erro na entrada, utilize apenas caracteres alfabéticos e tente novamente.")
+                Continuar()
+                continue
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                print(f"Mensagem de erro: {error}")
+                Continuar()
+                continue
+            
+            print("Buscando livros...")
+            
+            try:
+                for livro in lista_livros:
+                    if (livro.titulo.upper() == nome_alvo):
+                        encontrados += 1
+                        livro.Info()
+                        print("")
+                        
+                    print("-"*30)
+                
+                if encontrados > 0:
+                    print(f"\n{encontrados} livro(s) foram encontrados.")
+                else:
+                    print("\nNenhum livro com este titulo foi encontrado.")
+                
+                running = False
+                Continuar()
 
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            Continuar()
-            continue
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                Continuar()
+                continue
+        
+    else:
+        print("Não será possível buscar livros.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função de busca de livros por categoria
 def Info_Por_Categoria(lista_livros):
-    running = True
+    
+    if (len(lista_livros) > 0):
+        running = True
 
-    categoria_alvo = ""
-    encontrados = 0
-    
-    while running:
-        print("Busca pela categoria do livro\n")
-    
-        try:
-            categoria_alvo = input("Digite a categoria desejada: ").upper()
-        except Exception as error:
-            print("Houve um erro ao receber a informação, tente novamente.")
-            print(f"Erro: {error}")
-    
-        print("Buscando livros...")
+        categoria_alvo = ""
+        encontrados = 0
         
-        try:
-            # filtragem livro por livro
-            for livro in lista_livros:
-                if (livro.categoria.upper() == categoria_alvo):
-                    encontrados += 1
-                    livro.Info()
-                    print("")
-            
-            print("-"*30)
-            
-            # verificação para caso livros foram encontrados, ou não
-            if encontrados > 0:
-                print(f"\n{encontrados} livro(s) foram encontrados.")
-            else:
-                print("\nNenhum livro com esta categoria foi encontrado.")
-            
-            running = False
+        while running:
+            print("Busca pela categoria do livro\n")
+        
+            try:
+                categoria_alvo = input("Digite a categoria desejada: ").upper()
+                
+                if (len(categoria_alvo) <= 0):
+                    raise ValueError
 
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            print(f"Mensagem do erro: {error}")
-            Continuar()
-            continue
+            except ValueError:
+                print("\nOcorreu um erro na entrada, utilize apenas caracteres alfabéticos e tente novamente.")
+                Continuar()
+                continue
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                print(f"Mensagem de erro: {error}")
+                Continuar()
+                continue
+        
+            print("Buscando livros...")
+            
+            try:
+                # filtragem livro por livro
+                for livro in lista_livros:
+                    if (livro.categoria.upper() == categoria_alvo):
+                        encontrados += 1
+                        livro.Info()
+                        print("")
+                
+                print("-"*30)
+                
+                # verificação para caso livros foram encontrados, ou não
+                if encontrados > 0:
+                    print(f"\n{encontrados} livro(s) foram encontrados.")
+                else:
+                    print("\nNenhum livro com esta categoria foi encontrado.")
+                
+                running = False
+                Continuar()
+
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                print(f"Mensagem do erro: {error}")
+                Continuar()
+                continue
+        
+    else:
+        print("Não será possível buscar livros.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função de busca de livros pelo valor
 def Info_Por_Valor(lista_livros):
-    running = True
     
-    valor_alvo = 0.00
-    encontrados = 0
-    
-    while running:
-    
-        print("Busca pelo preco do livro\n")
+    if (len(lista_livros) > 0):
+        running = True
         
-        try:
-            valor_alvo = float(input("Digite o valor máximo desejado para a busca: "))
+        valor_alvo = 0.00
+        encontrados = 0
+        
+        while running:
+        
+            print("Busca pelo preco do livro\n")
             
-            print(f"Buscando livros até o valor de R$ {valor_alvo:.2f}...")
-            
-            # filtragem livro por livro
-            for livro in lista_livros:
-                if (livro.valor <= valor_alvo):
-                    encontrados += 1
-                    livro.Info()
-                    print("")
-            
-            print("-"*30)
-            
-            # verificação para caso livros foram encontrados, ou não
-            if encontrados > 0:
-                print(f"\n{encontrados} livro(s) foram encontrados.")
-            else:
-                print("\nNenhum livro até este valor foi encontrado.")
-            
-            running = False
-            
-        except ValueError:
-            print("Ocorreu um erro, tente novamente utilizando números inteiros ou flutuantes.")
-            Continuar()
-            continue
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            print(f"Mensagem do erro: {error}")
-            Continuar()
-            continue
+            try:
+                valor_alvo = float(input("Digite o valor máximo desejado para a busca: "))
+                
+                print(f"Buscando livros até o valor de R$ {valor_alvo:.2f}...")
+                
+                # filtragem livro por livro
+                for livro in lista_livros:
+                    if (livro.valor <= valor_alvo):
+                        encontrados += 1
+                        livro.Info()
+                        print("")
+                
+                print("-"*30)
+                
+                # verificação para caso livros foram encontrados, ou não
+                if encontrados > 0:
+                    print(f"\n{encontrados} livro(s) foram encontrados.")
+                else:
+                    print("\nNenhum livro até este valor foi encontrado.")
+                
+                running = False
+                Continuar()
+            except ValueError:
+                print("\nOcorreu um erro, tente novamente utilizando números inteiros ou flutuantes.")
+                Continuar()
+                continue
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                print(f"Mensagem do erro: {error}")
+                Continuar()
+                continue
+    else:
+        print("Não será possível buscar livros.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função de busca de livros pelo estoque
 def Info_Por_Estoque(lista_livros):
-    running = True
     
-    estoque_alvo = 0
-    encontrados = 0
-    
-    while running:
-        print("Busca de livros pela quantidade em estoque\n")
+    if (len(lista_livros) > 0):
+        running = True
         
-        try:
-            estoque_alvo = int(input("Digite a quantidade mínima desejada para a busca: "))
+        estoque_alvo = 0
+        encontrados = 0
+        
+        while running:
+            print("Busca de livros pela quantidade em estoque\n")
             
-            print(f"Buscando livros com quantidade maior que: {estoque_alvo}...")
-            
-            # filtragem livro por livro
-            for livro in lista_livros:
-                if (livro.estoque >= estoque_alvo):
-                    encontrados += 1
-                    livro.Info()
-                    print("")
-            
-            print("-"*30)
-            
-            # verificação para caso livros foram encontrados, ou não
-            if encontrados == 1:
-                print(f"\n{encontrados} livro foi encontrado.")
-            
-            elif encontrados > 1:
-                print(f"\n{encontrados} livros foram encontrados.")
-            else:
-                print("\nNenhum livro com quantidade maior que esta foi encontrado.")
-            
-            running = False
-            
-        except ValueError:
-            print("Ocorreu um erro, tente novamente usando números inteiros.")
-            Continuar()
-            continue
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            print(f"Mensagem do erro: {error}")
-            Continuar()
-            continue
+            try:
+                estoque_alvo = int(input("Digite a quantidade mínima desejada para a busca: "))
+                
+                print(f"Buscando livros com quantidade maior que: {estoque_alvo}...")
+                
+                # filtragem livro por livro
+                for livro in lista_livros:
+                    if (livro.estoque >= estoque_alvo):
+                        encontrados += 1
+                        livro.Info()
+                        print("")
+                
+                print("-"*30)
+                
+                # verificação para caso livros foram encontrados, ou não
+                if encontrados == 1:
+                    print(f"\n{encontrados} livro foi encontrado.")
+                
+                elif encontrados > 1:
+                    print(f"\n{encontrados} livros foram encontrados.")
+                else:
+                    print("\nNenhum livro com quantidade maior que esta foi encontrado.")
+                
+                running = False
+                Continuar()
+                
+            except ValueError:
+                print("\nOcorreu um erro, tente novamente usando números inteiros.")
+                Continuar()
+                continue
+            except Exception as error:
+                print("Ocorreu um erro inesperado, tente novamente.")
+                print(f"Mensagem do erro: {error}")
+                Continuar()
+                continue
+    else:
+        print("Não será possível buscar livros.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função de calculo para o valor total em estoque (entre todos os livros)
 def Valor_Total_Estoque(lista_livros):
-    valores_totais_livros = 0.0
-    estoque_total = 0
-    valor_total_estoque = 0.0
+    
+    if (len(lista_livros) > 0):
+        valores_totais_livros = 0.0
+        estoque_total = 0
+        valor_total_estoque = 0.0
 
-    print("Calculando o valor total em estoque...\n")
-    
-    for livro in lista_livros:
-        valores_totais_livros += livro.valor
-        estoque_total += livro.estoque
-    
-    valor_total_estoque = valores_totais_livros * estoque_total
-    
-    if (valor_total_estoque > 0):
-        print("Valor total em estoque: ")
-        print(f"R$ {valor_total_estoque:.2f}")
-    else: 
-        print("Não foi possível calcular o valor total do estoque.")
+        print("Calculando o valor total em estoque...\n")
+        
+        for livro in lista_livros:
+            valores_totais_livros += livro.valor
+            estoque_total += livro.estoque
+        
+        valor_total_estoque = valores_totais_livros * estoque_total
+        
+        if (valor_total_estoque > 0):
+            print("Valor total em estoque: ")
+            print(f"R$ {valor_total_estoque:.2f}")
+        else: 
+            print("Não foi possível calcular o valor total do estoque.")
+        
+        Continuar()
+    else:
+        print("Não será possível calcular o valor total do estoque.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função de busca no arquivo de dados
 def Carregar_Estoque():
-    running = True
-    
-    while running:
-        print("Carregando livros do arquivo...\n")
+    contador_linhas = 0
 
-        try:
-            # Abrindo o arquivo
-            arquivo = open("estoque.txt", "r", encoding="utf-8")
+    print("Carregando livros do arquivo...\n")
 
-            # carregando todas as linhas do arquivo
-            for linha in arquivo:
-                print(linha)
+    try:
+        # Abrindo o arquivo
+        arquivo = open("estoque.txt", "r", encoding="utf-8")
+
+        # carregando todas as linhas do arquivo
+        for linha in arquivo:
+            contador_linhas += 1
+            linha = linha.replace("\n", "").replace("R$", "").split(",")
             
-            # fechando o arquivo no final da função
-            arquivo.close()
-        except FileNotFoundError:
-            print("O arquivo de estoque não foi encontrado, certifique-se de que ele exista e está localizado junto com o programa.")
-            Continuar()
-            continue
-        except IOError:
-            print("O arquivo apresentou algum erro, impedindo a leitura.")
-            Continuar()
-            continue
-        except Exception as error:
-            print("Ocorreu um erro inesperado, tente novamente.")
-            Continuar()
-            continue
+            try:
+                novo_valor = float(linha[-2])
+            except ValueError:
+                print(
+                    f"\nOcorreu um erro ao carregar o valor presente na linha: {contador_linhas}"
+                )
+                print("\nCancelando a função....")
+                print("\nVerifique o dado e tente novamente.")
+                Continuar()
+                break
+            except Exception as error:
+                print("\nOcorreu um erro inesperado com o valor, verifique o arquivo e tente novamente")
+                Continuar()
+                break
+
+            try:
+                novo_estoque = int(linha[-1])
+            except ValueError:
+                print(
+                    f"\nOcorreu um erro ao carregar a quantidade presente na linha: {contador_linhas}"
+                )
+                print("\nCancelando a função....")
+                print("\nVerifique o dado e tente novamente.")
+                Continuar()
+                break
+            except Exception as error:
+                print("\nOcorreu um erro inesperado com a quantidade, verifique o arquivo e tente novamente")
+                Continuar()
+                break
+
+            try:
+                lista_livros.append(Livro(
+                    codigo=linha[0],
+                    titulo=linha[1],
+                    editora=linha[2],
+                    categoria=linha[3],
+                    ano=linha[4],
+                    valor=novo_valor,
+                    estoque=novo_estoque
+                ))
+            except Exception as error:
+                print("\nOcorreu um erro inesperado ao carregar, verifique o arquivo e tente novamente")
+                Continuar()
+                break
+        
+        # fechando o arquivo no final da função
+        arquivo.close()
+        
+        Continuar()
+    except FileNotFoundError:
+        print("O arquivo de estoque não foi encontrado, certifique-se de que ele exista e está localizado junto com o programa.")
+        Continuar()
+    except IOError:
+        print("O arquivo apresentou algum erro, impedindo a leitura.")
+        Continuar()
+    except Exception as error:
+        print("Ocorreu um erro inesperado, tente novamente.")
+        Continuar()
 
 # Função de atualizaro arquivo de estoque
 def Atualizar_Estoque(lista_livros):
-    running = True
+    if (len(lista_livros) > 0):
+        running = True
 
-    while running == True:
-
-        print("Atualizando o arquivo de estoque...")
+        while running == True:
+            print("Atualizando o arquivo de estoque...")
         
-        # Abrindo o arquivo para adicionar conteúdo
-        arquivo = open("estoque.txt", "a", encoding="utf-8")
-        
-        try:
-            for livro in lista_livros:
-                arquivo.write(f"{livro.codigo},{livro.titulo},{livro.ano},{livro.categoria},{livro.editora},R${livro.valor},{livro.estoque}\n")
-
-            arquivo.close()
-            running = False
-
-        except Exception as error:
-            print("\nOcorreu um erro na hora de atualizar o arquivo de estoque.")
-            print(f"Mensagen de erro: {error}\n")
-
-            #? Daqui para baixo está funcionando à base da gambiarra. *não mexer*.
-            flag = Repetir_Função()
+            # Abrindo o arquivo para adicionar conteúdo
+            arquivo = open("estoque.txt", "w", encoding="utf-8")
             
-            if (flag == True): #* Parar a função
+            try:
+                for livro in lista_livros:
+                    arquivo.write(f"{livro.codigo},{livro.titulo},{livro.ano},{livro.categoria},{livro.editora},R${livro.valor},{livro.estoque}\n")
+
+                arquivo.close()
                 running = False
-            elif (flag == False): #* Repetir a função
-                Continuar()
-                print("-"*30)
+
+            except Exception as error:
+                print("\nOcorreu um erro na hora de atualizar o arquivo de estoque.")
+                print(f"Mensagen de erro: {error}\n")
+
+                #? Daqui para baixo está funcionando à base da gambiarra. *não mexer*.
+                flag = Repetir_Função()
+                
+                if (flag == True): #* Parar a função
+                    running = False
+                elif (flag == False): #* Repetir a função
+                    Continuar()
+                    print("-"*30)
+
+    else:
+        print("Não foi possível atualizar o arquivo.")
+        print("Não há nenhum livro salvo na lista local.")
+        Continuar()
 
 # Função para o usuário escolher se deve repetir a função
 def Repetir_Função():
@@ -425,7 +674,7 @@ def Repetir_Função():
             else:
                 print("Opção inválida, tente novamente...")
         except ValueError:
-            print("Ocorreu um erro com o valor inserido, selecione uma opção válida.")
+            print("\nOcorreu um erro com o valor inserido, selecione uma opção válida.")
             Continuar()
             continue
         except Exception as error:
@@ -458,7 +707,7 @@ def Finalizar_Sessão(lista_livros):
                 print("\nEncerrando atividades...")
 
         except ValueError:
-            print("Entrada inválida, utilize caracteres válidos e tente novamente.")
+            print("\nEntrada inválida, utilize caracteres válidos e tente novamente.")
             Continuar()
             continue
         except Exception as error:
@@ -479,31 +728,9 @@ if __name__ == "__main__":
     lista_livros = []
 
     # escolha inserida pelo usuário, 
-    # número inicial é irrelevante, serve apenas para o funcionamento do loop.
+    # número inicial é irrelevante, serve apenas para o começo do loop.
     escolha = 1
-    
-    # Livros de exemplos, *não estão salvos no arquivo de estoque por padrão*.
-    lista_livros.append(
-                        Livro(
-                            codigo="0301", 
-                            titulo="Compiladores",
-                            editora="Pearson",
-                            categoria="Computação",
-                            ano="2016",
-                            valor=85.00,
-                            estoque=125
-                        ))
-    lista_livros.append(
-                        Livro(
-                            codigo="1203", 
-                            titulo="Engenharia de Software",
-                            editora="Pressman",
-                            categoria="Computação",
-                            ano="2011",
-                            valor=78.00,
-                            estoque=100
-                        ))
-    
+
     print("-"*30)
     print("\tSistema Livraria")
     
@@ -546,9 +773,15 @@ if __name__ == "__main__":
 
         elif escolha == 2: # Listagem geral dos livros
             print("-"*30)
-            print("Lista dos livros cadastrados: ")
-            for livro in lista_livros:
-                livro.Info()
+            
+            if (len(lista_livros) > 0):
+                print("Lista dos livros cadastrados: ")
+                for livro in lista_livros:
+                    livro.Info()
+            else:
+                print("Nenhum livro salvo na lista local.")
+
+            Continuar()
 
         elif escolha == 3: # Buscar livro por nome
             print("-"*30)
